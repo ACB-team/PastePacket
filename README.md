@@ -1,6 +1,25 @@
 # PastePacket｜粘贴包
 
 **PastePacket（粘贴包）** 是一个本地优先的小工具，用于把粘贴文本、调试日志、截图和拖入文件整理成干净、可分享的文件包。
+## 项目简介
+
+PastePacket｜粘贴包 是一个本地优先的粘贴、拖拽与文件交接工具。
+
+它可以把长文本、调试日志、程序报错、Agent 回报等内容快速打包成结构清晰的 TXT 文件，也可以将图片、截图、日志、文档等真实路径文件拖入程序后自动复制并重命名，形成干净、可追踪、方便分享的文件包。
+
+PastePacket 不只服务于 GPT 或 AI 对话，但尤其适合 GPT / AI Chat 的文件传输场景：当你需要把 Unity Console、运行报错、测试记录、微信图片、截图或 Agent 执行回报发送给 ChatGPT、Claude、Gemini 等 AI 工具时，它可以帮助你避免直接粘贴造成的上下文污染、文件边界混乱和文件名不可读问题，并且尤其能避免因为复制文本附件名称相同而引起的缓存命中，使 GPT 能读取最新文件。
+
+核心特点：
+
+- 本地运行，不联网，不上传文件；
+- 支持长文本生成 TXT 文件包；
+- 支持真实路径文件拖入后复制并重命名；
+- 保留原文件扩展名，不修改原文件；
+- 支持规则文件名、自定义文件名和随机码文件名；
+- 支持自定义 TXT 文件模板和超长文本拆分；
+- 尤其适合 GPT / AI 对话中的日志、截图、文件附件整理与传输。
+
+---
 
 它不是只服务于 GPT 或 AI 对话，但尤其适合这些场景：你需要把 Unity Console、程序报错、Agent 回报、微信图片、截图或临时文件整理成清晰的 TXT / 文件附件，再发送给 AI、同事或其他工具，而不是直接把一大段内容粘进聊天窗口里。尤其避免了因为复制文本附件名称相同而引起的缓存命中，gpt读不到新的文件的问题
 
@@ -204,6 +223,25 @@ MIT License
 # PastePacket
 
 **PastePacket** is a local-first utility for turning pasted text, debugging logs, screenshots, and dragged files into clean, shareable packets.
+
+
+## About
+
+PastePacket is a local-first tool for clean paste, drag, and file handoff.
+
+It turns long text, debugging logs, error messages, agent reports, screenshots, and dragged files into clean, well-bounded, shareable packets. It can generate structured TXT packets from pasted text, or copy-rename real-path files such as images, screenshots, logs, code files, and documents.
+
+PastePacket is not limited to GPT or AI workflows, but it is especially useful for GPT / AI chat file transfer. When sending Unity Console logs, runtime errors, test reports, WeChat images, screenshots, or agent execution outputs to ChatGPT, Claude, Gemini, or other AI tools, PastePacket helps avoid context pollution, unclear file boundaries, messy filenames, and particularly prevents GPT from reading outdated files due to attachment caching when filenames are identical, ensuring the newest file is always read.
+
+Key features:
+
+- Local-first: no network, no upload, no account required;
+- Generate clean TXT packets from long pasted text;
+- Drag real-path files into the app and copy-rename them automatically;
+- Preserve original file extensions and keep original files unchanged;
+- Support rule-based filenames, custom filenames, and random-code filenames;
+- Support custom TXT templates and optional long-text splitting;
+- Especially useful for GPT / AI chat logs, screenshots, attachments, and file handoff.
 
 It is not limited to GPT or AI workflows, but it is especially useful when you need to prepare logs, screenshots, agent reports, or temporary files before sending them to an AI assistant, a teammate, or another tool.
 
