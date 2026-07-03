@@ -1,443 +1,445 @@
-# PastePacket｜粘贴包
+# PastePacket
 
-**PastePacket（粘贴包）** 是一个本地优先的小工具，用于把粘贴文本、调试日志、截图和拖入文件整理成干净、可分享的文件包。
-## 项目简介
+> 把长日志、控制台输出、Agent 回报、截图和普通文件，快速整理成可发送、可拖入 GPT 的独立文件包。
 
-PastePacket｜粘贴包 是一个本地优先的粘贴、拖拽与文件交接工具。
+PastePacket is a small local desktop tool for packaging long logs, console output, AI agent reports, screenshots, WeChat images, and ordinary files into clean standalone packets before sending them to GPT / ChatGPT, teammates, or other tools.
 
-它可以把长文本、调试日志、程序报错、Agent 回报等内容快速打包成结构清晰的 TXT 文件，也可以将图片、截图、日志、文档等真实路径文件拖入程序后自动复制并重命名，形成干净、可追踪、方便分享的文件包。
-
-PastePacket 不只服务于 GPT 或 AI 对话，但尤其适合 GPT / AI Chat 的文件传输场景：当你需要把 Unity Console、运行报错、测试记录、微信图片、截图或 Agent 执行回报发送给 ChatGPT、Claude、Gemini 等 AI 工具时，它可以帮助你避免直接粘贴造成的上下文污染、文件边界混乱和文件名不可读问题，并且尤其能避免因为复制文本附件名称相同而引起的缓存命中，使 GPT 能读取最新文件。
-
-核心特点：
-
-- 本地运行，不联网，不上传文件；
-- 支持长文本生成 TXT 文件包；
-- 支持真实路径文件拖入后复制并重命名；
-- 保留原文件扩展名，不修改原文件；
-- 支持规则文件名、自定义文件名和随机码文件名；
-- 支持自定义 TXT 文件模板和超长文本拆分；
-- 尤其适合 GPT / AI 对话中的日志、截图、文件附件整理与传输。
+It is designed to reduce context pollution, version confusion, long-text truncation, and messy file naming during AI-assisted debugging and collaboration.
 
 ---
 
-它不是只服务于 GPT 或 AI 对话，但尤其适合这些场景：你需要把 Unity Console、程序报错、Agent 回报、微信图片、截图或临时文件整理成清晰的 TXT / 文件附件，再发送给 AI、同事或其他工具，而不是直接把一大段内容粘进聊天窗口里。**尤其避免了因为复制文本附件名称相同而引起的缓存命中，gpt读不到新的文件的问题**
+## 中文简介
 
----
+PastePacket 是一个本地小工具，用于把 Unity Console、终端日志、构建报错、Agent 回报、微信图片、截图和普通文件快速整理成独立文件包，再拖入 GPT / ChatGPT 或通过微信发送给别人。
 
-## 主要功能
-
-- 粘贴长文本并生成干净的 TXT 文件包；
-- 支持把真实路径文件拖入程序，自动复制并重命名；
-- 支持图片、截图、日志、代码、文档等普通文件；
-- 保留原文件扩展名；
-- 不修改原文件，只复制到输出目录；
-- 支持规则文件名、自定义文件名、随机码文件名；
-- 支持自定义 TXT 文件模板；
-- 支持超长文本按大小拆分；
-- 支持窗口置顶；
-- 支持无黑框运行源码版；
-- 支持打包为无黑框 Windows EXE。
-
----
-
-## 典型使用场景
-
-### 1. 整理 AI 对话输入
-
-当你需要把长日志、报错、测试回报发给 ChatGPT、Claude、Gemini 或其他 AI 工具时，可以先用 PastePacket 生成独立 TXT 文件，再作为附件上传。
-
-这样可以减少以下问题：
-
-- 直接粘贴污染对话上下文；
-- 多段日志被 AI 误认为同一个文件；
-- 文件边界不清；
-- 长文本难以复查；
-- 微信图片或截图文件名混乱。
-
-### 2. 打包调试日志
-
-适用于：
-
-- Unity Console 日志；
-- Python / Node / PowerShell 报错；
-- Agent 执行回报；
-- 构建失败日志；
-- 测试输出；
-- 临时诊断文本。
-
-### 3. 清理微信图片和截图文件名
-
-微信、截图工具或临时下载文件经常带有混乱文件名。你可以把真实路径文件拖入 PastePacket，让它复制到输出目录并按规则重命名。
-
----
-
-## 安装与运行
-
-### 环境要求
-
-- Windows
-- Python 3.10+
-- PySide6
-
-### 第一次使用
-
-解压源码包后，先运行：
-
-```bat
-install_dependencies.bat
-```
-
-该脚本会安装 PySide6。
-
-### 无黑框运行
-
-推荐双击：
+它不是 AI 工具，也不调用任何 API。它只做一件事：
 
 ```text
-run_no_console.vbs
-```
-
-如果你需要查看报错或调试信息，可以运行：
-
-```text
-run_debug_console.bat
+把复杂输入先打包成边界清楚、命名清楚、可传递的本地文件。
 ```
 
 ---
 
-## 打包为 EXE
+## What PastePacket Solves / 解决什么问题
 
-双击：
+### 1. 避免 GPT 上下文污染
 
-```text
-build_exe_windowed.bat
-```
+当你把复杂控制台日志直接粘进 GPT 时，GPT 可能会把不同轮次的日志误认为同一个文件、同一个版本或同一段上下文。
 
-打包完成后，生成的程序位于：
-
-```text
-dist\PastePacketQt.exe
-```
-
-该 EXE 使用 `--windowed` 参数打包，正常情况下不会显示命令提示符黑框。
-
----
-
-## 使用说明
-
-### 生成 TXT 文件包
-
-1. 打开 PastePacket；
-2. 将日志、报错或长文本粘贴到主输入框；
-3. 点击“生成 TXT 文件”；
-4. 到输出目录中找到生成的 TXT 文件；
-5. 将该文件发送给 AI、同事或其他工具。
-
-### 拖入文件并重命名
-
-1. 将图片、截图、日志、文档等真实路径文件拖入程序；
-2. PastePacket 会复制文件到输出目录；
-3. 文件会按当前命名规则自动重命名；
-4. 原文件不会被修改。
-
----
-
-## 文件名模式
-
-PastePacket 支持三种文件名模式：
-
-### 规则文件名
-
-例如：
-
-```text
-LOG_001.txt
-LOG_002.png
-LOG_003.docx
-```
-
-适合日常连续整理。
-
-### 自定义文件名
-
-例如：
-
-```text
-Unity_Build_Error.txt
-WeChat_Screenshot.png
-```
-
-适合单次明确命名。
-
-### 随机码文件名
-
-例如：
+PastePacket 会把每次日志生成一个独立 TXT 文件，例如：
 
 ```text
 LOG_483927.txt
 ```
 
-适合避免重名或快速生成临时包。
+这样每次日志都有清楚边界，减少旧路径、旧错误、旧缓存、旧附件对后续判断的污染。
 
 ---
 
-## 本地优先与隐私
+### 2. 避免超长文本复制粘贴被截断
 
-PastePacket 是本地工具：
+超长 Console、构建日志、Agent 回报直接粘贴进聊天工具时，经常会出现：
 
-- 不联网；
-- 不上传文件；
-- 不需要账号；
-- 不修改原文件；
-- 不执行日志内容；
-- 不读取文件内容用于分析；
-- 只是将文本写入 TXT，或将文件复制并重命名。
+```text
+中途粘贴失败
+末尾信息不全
+最后几行关键报错丢失
+```
 
----
-
-## 当前边界
-
-当前版本主要面向 Windows 桌面使用。
-
-文件拖入功能仅处理**真实本地文件路径**。如果某些应用拖出的对象不是实际文件路径，可能无法识别。遇到这种情况，可以先将文件保存到本地，再拖入 PastePacket。
+PastePacket 会先把完整内容写入 TXT 文件，再作为文件传递，更适合保存完整长输出。
 
 ---
 
-## 项目定位
+### 3. 让超长文本可以通过微信发送
 
-PastePacket 的目标不是做大型文件管理器，也不是替代专业笔记、网盘或日志平台。它解决的是一个更小但很常见的问题：
+有些超长文本直接复制到微信里发不出去，或者发送体验很差。
 
-> 把临时文本、日志、截图和文件快速整理成边界清晰、名称干净、方便交接的文件包。
+PastePacket 可以把这些内容转成 TXT 文件：
 
-它尤其适合 AI 对话、调试协作、临时文件交接和轻量化工作流。
+```text
+长文本 → TXT 文件 → 微信发送
+```
+
+这样更适合把日志、报错、排查信息发给同事或团队成员。
+
+---
+
+### 4. 微信图片、截图下载后快速改名整理
+
+微信图片、截图、缓存文件下载后，文件名常常不可读。
+
+PastePacket 支持把图片或普通文件拖入窗口：
+
+```text
+拖入图片 → 复制到输出目录 → 按命名规则改名 → 保留扩展名
+```
+
+原文件不会被修改。
+
+---
+
+## Core Features / 核心功能
+
+- 粘贴长文本，生成 `.txt` 日志包。
+- 拖入真实本地文件或图片，复制到输出目录并重命名。
+- 保留原文件，不修改源文件。
+- 保留文件扩展名。
+- 默认使用稳定输出目录：
+  - Windows 有 D 盘时：`D:\GPT_LogPackets`
+  - 否则：`~/PastePacket_LogPackets`
+- 支持用户自定义输出目录。
+- 三种命名方式：
+  - 递增序号
+  - 自定义名称
+  - 随机短码
+- 最近文件列表。
+- 可从最近文件列表拖出真实文件到 GPT / 浏览器 / 文件管理器。
+- 支持超长文本按大小拆分。
+- 支持自定义 TXT 模板。
+- 模板框默认留空；留空时使用内置默认模板。
+- 本地运行。
+- 不联网。
+- 不调用 OpenAI API。
+- 不执行日志内容。
+
+---
+
+## Quick Start / 快速开始
+
+### Option 1: Use the EXE / 使用 EXE
+
+Download `PastePacket.exe` from Releases and run it directly.
+
+On Windows, the app is packaged in windowed mode, so no black console window should appear.
+
+### Option 2: Run from Source / 从源码运行
+
+Install dependency:
+
+```bash
+pip install PySide6
+```
+
+Run:
+
+```bash
+python PastePacket.py
+```
+
+If `python` is not available on Windows, use:
+
+```bash
+py PastePacket.py
+```
+
+---
+
+## Basic Usage / 基本用法
+
+### A. Generate a TXT packet from long text
+
+1. Copy Unity Console output, terminal logs, build errors, or Agent reports.
+2. Paste into the main text area.
+3. Click **生成 TXT 文件**.
+4. Find the generated file in the recent file list.
+5. Drag the `.txt` file into GPT / ChatGPT, or send it through WeChat.
+
+Workflow:
+
+```text
+复制日志 → 粘贴到 PastePacket → 生成 TXT → 拖入 GPT / 发送微信
+```
+
+---
+
+### B. Import and rename files
+
+You can also drag real local files into PastePacket, such as:
+
+- screenshots
+- WeChat images
+- `.log` files
+- `.txt` files
+- source code files
+- ordinary documents
+
+PastePacket will:
+
+```text
+copy → rename → preserve extension
+```
+
+It will not modify the original file.
+
+---
+
+## Naming Modes / 命名方式
+
+PastePacket supports three mutually exclusive naming modes.
+
+### 1. Incremental Sequence / 递增序号
+
+Examples:
+
+```text
+LOG_001.txt
+LOG_002.txt
+LOG_003.png
+```
+
+Best for processing a continuous batch of related logs or files.
+
+---
+
+### 2. Custom Filename / 自定义名称
+
+Examples:
+
+```text
+Unity_Build_Error.txt
+ACB_Agent_Report.txt
+WeChat_Screenshot.txt
+```
+
+If the target file already exists, PastePacket automatically appends a suffix such as:
+
+```text
+_2
+_3
+```
+
+---
+
+### 3. Random Short Code / 随机短码
+
+Examples:
+
+```text
+LOG_483927.txt
+LOG_293104.png
+```
+
+Best for high-frequency temporary GPT log packets.
+
+This is the recommended default mode.
+
+---
+
+## Output Directory / 输出目录
+
+PastePacket avoids unstable temporary folders by default.
+
+On Windows, it prefers:
+
+```text
+D:\GPT_LogPackets
+```
+
+If the D drive does not exist, it falls back to:
+
+```text
+~/PastePacket_LogPackets
+```
+
+You can choose a custom output directory in the app.
+
+Recommended to avoid:
+
+```text
+Temp
+Downloads
+Desktop
+OneDrive
+cloud-synced folders
+```
+
+These folders may be cleaned, synced, locked, or monitored by security software.
+
+---
+
+## TXT Packet Template / TXT 模板
+
+PastePacket has a built-in default template for generated TXT files.
+
+The default template includes fields such as:
+
+```text
+LOG_PACKET_ID
+CREATED_AT
+SOURCE
+BOUNDARY
+RAW CONTENT START
+RAW CONTENT END
+```
+
+Its purpose is to tell GPT that the file is:
+
+```text
+one-time diagnostic evidence
+not source code
+not a design document
+not a version baseline
+not long-term project memory
+```
+
+### Custom Template
+
+The template editor is empty by default.
+
+If left empty, PastePacket uses the internal default template.
+
+If you define a custom template, it must contain:
+
+```text
+{raw_content}
+```
+
+Supported placeholders:
+
+```text
+{packet_id}
+{created_at}
+{source}
+{file_name}
+{part_index}
+{part_total}
+{raw_content}
+```
+
+---
+
+## Long Text Splitting / 超长文本拆分
+
+PastePacket supports splitting very long text into multiple TXT files.
+
+You can choose:
+
+```text
+B
+KB
+MB
+```
+
+Example output:
+
+```text
+LOG_001_part01.txt
+LOG_001_part02.txt
+LOG_001_part03.txt
+```
+
+This is useful when one log is too large to send or upload as a single file.
+
+---
+
+## Safety / 安全边界
+
+PastePacket is a local packaging tool, not an execution tool.
+
+It does **not**:
+
+- upload files
+- connect to cloud services
+- call OpenAI API
+- execute pasted logs
+- execute imported files
+- modify original files
+- scan unrelated folders
+- auto-start with Windows
+- run as a background service
+
+For imported files, it only performs:
+
+```text
+copy → rename → preserve extension
+```
+
+---
+
+## Build from Source / 从源码打包
+
+Install dependencies:
+
+```bash
+py -m pip install PySide6 pyinstaller
+```
+
+Build a no-console Windows EXE:
+
+```bash
+py -m PyInstaller --noconfirm --clean --onefile --windowed --name PastePacket PastePacket.py
+```
+
+The output will be:
+
+```text
+dist/PastePacket.exe
+```
+
+The `--windowed` flag prevents a black console window from appearing when the app starts.
+
+---
+
+## Recommended Use Cases / 推荐使用场景
+
+PastePacket is useful for:
+
+- Unity debugging
+- GPT-assisted coding
+- AI Agent report packaging
+- build error packaging
+- terminal log cleanup
+- sending long logs through WeChat
+- renaming WeChat images and screenshots
+- preparing files before sending them to GPT
+- separating temporary diagnostic evidence from long-term project context
+
+---
+
+## Project Status / 项目状态
+
+Current version:
+
+```text
+v0.4.6 compact UI
+```
+
+This version focuses on:
+
+- stable output path
+- compact UI
+- three clear naming modes
+- random short-code naming
+- drag-and-drop file packaging
+- recent file drag-out
+- no-console Windows packaging
+
+---
+
+## Roadmap / 后续计划
+
+Possible future improvements:
+
+- GitHub Releases
+- app icon
+- installer
+- Quicker action version
+- AutoHotkey helper
+- portable settings
+- file type presets
+- one-click packet summary
+- better drag-to-GPT workflow
+- screenshots and demo video
+- English-only README version
 
 ---
 
 ## License
-
-MIT License
-
----
-
-# PastePacket
-
-**PastePacket** is a local-first utility for turning pasted text, debugging logs, screenshots, and dragged files into clean, shareable packets.
-
-
-## About
-
-PastePacket is a local-first tool for clean paste, drag, and file handoff.
-
-It turns long text, debugging logs, error messages, agent reports, screenshots, and dragged files into clean, well-bounded, shareable packets. It can generate structured TXT packets from pasted text, or copy-rename real-path files such as images, screenshots, logs, code files, and documents.
-
-PastePacket is not limited to GPT or AI workflows, but it is especially useful for GPT / AI chat file transfer. When sending Unity Console logs, runtime errors, test reports, WeChat images, screenshots, or agent execution outputs to ChatGPT, Claude, Gemini, or other AI tools, PastePacket helps avoid context pollution, unclear file boundaries, messy filenames, and particularly prevents GPT from reading outdated files due to attachment caching when filenames are identical, ensuring the newest file is always read.
-
-Key features:
-
-- Local-first: no network, no upload, no account required;
-- Generate clean TXT packets from long pasted text;
-- Drag real-path files into the app and copy-rename them automatically;
-- Preserve original file extensions and keep original files unchanged;
-- Support rule-based filenames, custom filenames, and random-code filenames;
-- Support custom TXT templates and optional long-text splitting;
-- Especially useful for GPT / AI chat logs, screenshots, attachments, and file handoff.
-
-It is not limited to GPT or AI workflows, but it is especially useful when you need to prepare logs, screenshots, agent reports, or temporary files before sending them to an AI assistant, a teammate, or another tool.
-
-> The default interface language is **Simplified Chinese**.
-
----
-
-## Features
-
-- Paste long text and generate clean TXT packets;
-- Drag real-path files into the app and copy-rename them automatically;
-- Support images, screenshots, logs, code files, documents, and regular files;
-- Preserve original file extensions;
-- Keep original files unchanged;
-- Support rule-based filenames, custom filenames, and random-code filenames;
-- Support custom TXT packet templates;
-- Support optional long-text splitting;
-- Support always-on-top window mode;
-- Support no-console source launcher;
-- Support building a no-console Windows EXE.
-
----
-
-## Typical Use Cases
-
-### 1. Preparing AI Chat Inputs
-
-When sending long logs, errors, test reports, or agent outputs to ChatGPT, Claude, Gemini, or other AI tools, you can first turn them into clean TXT attachments.
-
-This helps reduce problems such as:
-
-- Polluting the chat context with raw pasted text;
-- Multiple logs being confused as one file;
-- Unclear content boundaries;
-- Hard-to-review long text;
-- Messy filenames from screenshots or messaging apps.
-
-### 2. Packaging Debug Logs
-
-Useful for:
-
-- Unity Console logs;
-- Python / Node / PowerShell errors;
-- Agent execution reports;
-- Build failure logs;
-- Test outputs;
-- Temporary diagnostic text.
-
-### 3. Cleaning Screenshot and File Names
-
-Screenshots, WeChat images, or temporary downloaded files often have messy filenames. PastePacket can copy them into an output folder and rename them with a clean naming rule.
-
----
-
-## Installation and Run
-
-### Requirements
-
-- Windows
-- Python 3.10+
-- PySide6
-
-### First Run
-
-After extracting the source package, run:
-
-```bat
-install_dependencies.bat
-```
-
-This installs PySide6.
-
-### Run Without Console Window
 
 Recommended:
 
 ```text
-run_no_console.vbs
-```
-
-For debugging or checking errors, run:
-
-```text
-run_debug_console.bat
-```
-
----
-
-## Build EXE
-
-Run:
-
-```text
-build_exe_windowed.bat
-```
-
-The generated executable will be located at:
-
-```text
-dist\PastePacketQt.exe
-```
-
-The EXE is built with the `--windowed` option, so it should not show a command prompt window.
-
----
-
-## How to Use
-
-### Generate a TXT Packet
-
-1. Open PastePacket;
-2. Paste logs, errors, or long text into the main input area;
-3. Click “生成 TXT 文件”;
-4. Find the generated TXT file in the output folder;
-5. Send the file to an AI assistant, teammate, or another tool.
-
-### Drag and Rename Files
-
-1. Drag a real-path file into PastePacket;
-2. PastePacket copies it to the output folder;
-3. The copied file is renamed according to the current naming rule;
-4. The original file remains unchanged.
-
----
-
-## Filename Modes
-
-PastePacket supports three filename modes:
-
-### Rule-based Filename
-
-Example:
-
-```text
-LOG_001.txt
-LOG_002.png
-LOG_003.docx
-```
-
-Good for daily sequential packaging.
-
-### Custom Filename
-
-Example:
-
-```text
-Unity_Build_Error.txt
-WeChat_Screenshot.png
-```
-
-Good for explicit one-off naming.
-
-### Random-code Filename
-
-Example:
-
-```text
-LOG_483927.txt
-```
-
-Good for quick temporary packets and avoiding name conflicts.
-
----
-
-## Local-first and Privacy
-
-PastePacket is a local utility:
-
-- No network access;
-- No file upload;
-- No account required;
-- Does not modify original files;
-- Does not execute log content;
-- Does not analyze file contents;
-- Only writes pasted text into TXT files or copy-renames selected files.
-
----
-
-## Current Scope
-
-The current version is mainly designed for Windows desktop use.
-
-Drag-and-drop only works with **real local file paths**. If an app provides a non-file drag object instead of a real file path, PastePacket may not recognize it. In that case, save the file locally first and then drag it into PastePacket.
-
----
-
-## Project Positioning
-
-PastePacket is not a large file manager, a note-taking app, or a cloud log platform. It solves a smaller but common problem:
-
-> Quickly turning temporary text, logs, screenshots, and files into clean, well-bounded, handoff-ready packets.
-
-It is especially useful for AI chat, debugging collaboration, temporary file handoff, and lightweight workflows.
-
----
-
-## License
-
 MIT License
+```
+
+License file to be added.
